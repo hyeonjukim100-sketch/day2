@@ -73,6 +73,12 @@
 
     footer { grid-area: footer; text-align: center; color: var(--muted); font-size: .9rem; }
 
+    /* 채팅 에이전트 (agent.html) */
+    #chatBtn { position: fixed; right: 20px; bottom: 20px; padding: 12px 20px; font-size: 1rem; border-radius: 999px; background: var(--accent); color: var(--accent-fg); box-shadow: 0 4px 14px rgba(0,0,0,.25); z-index: 10; }
+    #chatPanel { position: fixed; right: 20px; bottom: 76px; width: min(420px, calc(100vw - 40px)); height: min(600px, calc(100vh - 100px)); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); box-shadow: 0 8px 28px rgba(0,0,0,.3); z-index: 10; }
+    #chatPanel[hidden] { display: none; }
+    #chatPanel iframe { width: 100%; height: 100%; border: 0; display: block; }
+
     @media (max-width: 720px) {
       .page { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "gallery" "section" "article" "aside" "footer"; }
     }
@@ -181,6 +187,9 @@
     </footer>
   </div>
 
+  <button id="chatBtn" type="button" aria-expanded="false">💬 에이전트와 채팅</button>
+  <div id="chatPanel" hidden></div>
+
   <script>
     const PER_PAGE = 10;
     const $ = id => document.getElementById(id);
@@ -230,6 +239,20 @@
       $('pagePrev').disabled = page <= 1;
       $('pageNext').disabled = page >= last;
     }
+
+    // 버튼을 누르면 agent.html 을 불러와 채팅 화면을 열고, 다시 누르면 닫습니다.
+    $('chatBtn').addEventListener('click', () => {
+      const panel = $('chatPanel');
+      if (!panel.firstChild) {
+        const frame = document.createElement('iframe');
+        frame.src = 'agent.html';
+        frame.title = '제주 특산물 에이전트 채팅';
+        panel.appendChild(frame);
+      }
+      panel.hidden = !panel.hidden;
+      $('chatBtn').setAttribute('aria-expanded', String(!panel.hidden));
+      $('chatBtn').textContent = panel.hidden ? '💬 에이전트와 채팅' : '✕ 채팅 닫기';
+    });
 
     function search(q) { query = q.trim(); if (!query) return; $('q').value = query; page = 1; load(); }
 
