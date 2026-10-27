@@ -14,7 +14,7 @@
     body { font-family: sans-serif; background: var(--bg); color: var(--fg); margin: 0; padding: 16px; line-height: 1.6; }
     .page { max-width: 960px; margin: 0 auto; display: grid; gap: 14px;
       grid-template-columns: 2fr 1fr;
-      grid-template-areas: "header header" "nav nav" "section aside" "article aside" "footer footer"; }
+      grid-template-areas: "header header" "nav nav" "gallery aside" "section aside" "article aside" "footer footer"; }
     .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; min-width: 0; }
     h2 { margin: 0 0 12px; font-size: 1.2rem; }
     h3 { margin: 0 0 4px; font-size: 1rem; }
@@ -29,6 +29,31 @@
     nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
     nav a { display: block; padding: 8px 16px; border-radius: 999px; color: var(--fg); text-decoration: none; font-weight: 600; }
     nav a:hover { background: var(--accent); color: var(--accent-fg); }
+
+    /* 사진 슬라이더 */
+    #gallery { grid-area: gallery; }
+    #gallery form { display: flex; gap: 8px; flex-wrap: wrap; }
+    #gallery input { flex: 1; min-width: 140px; padding: 10px 12px; font-size: 1rem; border: 1px solid var(--line); border-radius: 10px; background: var(--bg); color: var(--fg); }
+    button { font-family: inherit; border: 0; cursor: pointer; }
+    .go { padding: 10px 18px; font-size: 1rem; border-radius: 10px; background: var(--accent); color: var(--accent-fg); }
+    button:disabled { opacity: .4; cursor: default; }
+    .chips { display: flex; gap: 6px; flex-wrap: wrap; margin: 10px 0 0; }
+    .chip { padding: 5px 12px; border-radius: 999px; background: var(--soft); color: var(--fg); font-size: .85rem; }
+    .chip:hover { background: var(--accent); color: var(--accent-fg); }
+    #status { min-height: 1.4em; margin: 8px 0 0; }
+    .slider { position: relative; overflow: hidden; border-radius: 12px; background: #000; aspect-ratio: 16 / 10; margin-top: 10px; }
+    .track { display: flex; height: 100%; transition: transform .4s ease; }
+    .slide { min-width: 100%; height: 100%; position: relative; }
+    .slide img { width: 100%; height: 100%; object-fit: contain; display: block; }
+    .caption { position: absolute; left: 0; right: 0; bottom: 0; padding: 6px 12px; background: rgba(0,0,0,.55); color: #fff; font-size: .8rem; }
+    .caption a { color: #fff; }
+    .nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 40px; height: 40px; padding: 0; border-radius: 50%; background: rgba(0,0,0,.5); color: #fff; font-size: 1.3rem; }
+    .prev { left: 8px; } .next { right: 8px; }
+    .dots { display: flex; justify-content: center; gap: 6px; margin-top: 10px; }
+    .dots span { width: 9px; height: 9px; border-radius: 50%; background: var(--line); cursor: pointer; }
+    .dots span.on { background: var(--accent); }
+    .pager { display: flex; justify-content: space-between; align-items: center; margin-top: 10px; }
+    .pager button { padding: 8px 14px; border-radius: 10px; background: var(--accent); color: var(--accent-fg); }
 
     #products { grid-area: section; }
     .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 10px; }
@@ -49,7 +74,7 @@
     footer { grid-area: footer; text-align: center; color: var(--muted); font-size: .9rem; }
 
     @media (max-width: 720px) {
-      .page { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "section" "article" "aside" "footer"; }
+      .page { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "gallery" "section" "article" "aside" "footer"; }
     }
   </style>
 </head>
@@ -62,12 +87,43 @@
 
     <nav class="box">
       <ul>
+        <li><a href="#gallery">사진 보기</a></li>
         <li><a href="#products">대표 특산물</a></li>
         <li><a href="#story">제철 달력</a></li>
         <li><a href="#faq">자주 묻는 질문</a></li>
         <li><a href="#experience">체험·날씨</a></li>
       </ul>
     </nav>
+
+    <section id="gallery" class="box">
+      <h2>📸 제주 특산물 사진 보기</h2>
+      <form id="form">
+        <input id="q" type="text" value="제주 감귤" placeholder="검색어 (예: 제주 감귤)" required>
+        <button class="go" type="submit">검색</button>
+      </form>
+      <div class="chips">
+        <button class="chip" type="button" data-q="제주 감귤">🍊 감귤</button>
+        <button class="chip" type="button" data-q="한라봉">🍋 한라봉</button>
+        <button class="chip" type="button" data-q="흑돼지">🐖 흑돼지</button>
+        <button class="chip" type="button" data-q="갈치">🐟 갈치</button>
+        <button class="chip" type="button" data-q="제주 바다">🌊 제주 바다</button>
+      </div>
+      <p class="muted" id="status">검색어를 입력하거나 위의 버튼을 눌러 보세요.</p>
+
+      <div id="result" hidden>
+        <div class="slider">
+          <div class="track" id="track"></div>
+          <button class="nav-btn prev" id="prev" type="button" aria-label="이전">‹</button>
+          <button class="nav-btn next" id="next" type="button" aria-label="다음">›</button>
+        </div>
+        <div class="dots" id="dots"></div>
+        <div class="pager">
+          <button id="pagePrev" type="button">← 이전 10개</button>
+          <span class="muted" id="pageInfo"></span>
+          <button id="pageNext" type="button">다음 10개 →</button>
+        </div>
+      </div>
+    </section>
 
     <section id="products" class="box">
       <h2>🌴 제주 대표 특산물</h2>
@@ -120,8 +176,68 @@
     </aside>
 
     <footer class="box">
-      © 2026 김현주 · 제주 특산물 에이전트
+      © 2026 김현주 · 제주 특산물 에이전트 · 사진 제공 Pixabay
     </footer>
   </div>
+
+  <script>
+    const PER_PAGE = 10;
+    const $ = id => document.getElementById(id);
+    let query = '', page = 1, total = 0, index = 0, count = 0;
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
+
+    async function load() {
+      $('status').textContent = '불러오는 중…';
+      try {
+        // API 키는 서버(/api/pixabay)의 환경변수에만 있고 브라우저에는 노출되지 않습니다.
+        const res = await fetch('/api/pixabay?' + new URLSearchParams({ q: query, page }));
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || '불러오지 못했습니다.');
+        total = data.totalHits;
+        render(data.hits);
+      } catch (err) {
+        $('status').textContent = err.message || '불러오지 못했습니다.';
+      }
+    }
+
+    function render(hits) {
+      if (!hits.length) { $('result').hidden = true; $('status').textContent = '검색 결과가 없습니다.'; return; }
+      count = hits.length; index = 0;
+      $('track').innerHTML = hits.map(h =>
+        '<div class="slide"><img src="' + esc(h.webformatURL) + '" alt="' + esc(h.tags) + '">' +
+        '<div class="caption">' + esc(h.tags) + ' · <a href="' + esc(h.pageURL) + '" target="_blank" rel="noopener">' + esc(h.user) + ' / Pixabay</a></div></div>'
+      ).join('');
+      $('dots').innerHTML = hits.map((_, i) => '<span data-i="' + i + '"></span>').join('');
+      $('result').hidden = false;
+      $('status').textContent = '"' + query + '" 검색 결과 ' + total + '장';
+      go(0);
+    }
+
+    function go(i) {
+      index = (i + count) % count;
+      $('track').style.transform = 'translateX(-' + index * 100 + '%)';
+      [...$('dots').children].forEach((d, n) => d.classList.toggle('on', n === index));
+      const last = Math.ceil(total / PER_PAGE);
+      $('pageInfo').textContent = page + ' / ' + last + ' 페이지';
+      $('pagePrev').disabled = page <= 1;
+      $('pageNext').disabled = page >= last;
+    }
+
+    function search(q) { query = q.trim(); if (!query) return; $('q').value = query; page = 1; load(); }
+
+    $('form').addEventListener('submit', e => { e.preventDefault(); search($('q').value); });
+    document.querySelector('.chips').addEventListener('click', e => { if (e.target.dataset.q) search(e.target.dataset.q); });
+    $('prev').addEventListener('click', () => go(index - 1));
+    $('next').addEventListener('click', () => go(index + 1));
+    $('dots').addEventListener('click', e => { if (e.target.dataset.i) go(+e.target.dataset.i); });
+    $('pagePrev').addEventListener('click', () => { page--; load(); });
+    $('pageNext').addEventListener('click', () => { page++; load(); });
+    document.addEventListener('keydown', e => {
+      if (e.target.tagName === 'INPUT' || $('result').hidden) return;
+      if (e.key === 'ArrowLeft') go(index - 1);
+      if (e.key === 'ArrowRight') go(index + 1);
+    });
+  </script>
 </body>
 </html>
