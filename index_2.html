@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>내 취향 카드</title>
+  <style>
+    :root { --bg:#f4f1ea; --card:#ffffff; --fg:#22211e; --muted:#6f6d66; --line:#e2ded3; --accent:#e8751a; --accent-fg:#ffffff; }
+    @media (prefers-color-scheme: dark) {
+      :root { --bg:#151613; --card:#212220; --fg:#eeede7; --muted:#a09e96; --line:#383935; --accent:#f08a3c; --accent-fg:#1a1100; }
+    }
+    * { box-sizing: border-box; }
+    body { font-family: sans-serif; background: var(--bg); color: var(--fg); margin: 0; padding: 24px 16px; display: flex; flex-direction: column; align-items: center; gap: 16px; min-height: 100vh; }
+    .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; width: 100%; max-width: 520px; }
+
+    /* 헤더 카드 */
+    header.card { text-align: center; }
+    header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+    header p { margin: 0; color: var(--muted); }
+
+    /* 네비게이션 메뉴 카드 */
+    nav.card { padding: 10px 12px; }
+    nav ul { list-style: none; margin: 0; padding: 0; display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    nav a { display: block; padding: 8px 16px; border-radius: 999px; color: var(--fg); text-decoration: none; font-weight: 600; }
+    nav a:hover, nav a.active { background: var(--accent); color: var(--accent-fg); }
+
+    /* 바디 카드 */
+    main.card { display: flex; flex-direction: column; align-items: center; gap: 16px; }
+    main h2 { margin: 0; font-size: 1.1rem; }
+
+    main h3 { margin: 16px 0 4px; font-size: 1rem; color: var(--accent); }
+    .promo { width: 100%; }
+    .promo ol { margin: 0; padding: 0; list-style: none; }
+    .promo li { padding: 6px 0; border-bottom: 1px solid var(--line); line-height: 1.5; }
+
+    /* 푸터 카드 */
+    footer.card { text-align: center; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <header class="card">
+    <h1>🍊 내 취향 카드</h1>
+    <p>제주도 특산물을 좋아하는 김현주</p>
+  </header>
+
+  <nav class="card">
+    <ul>
+      <li><a href="#" class="active">홈</a></li>
+      <li><a href="#">특산물</a></li>
+      <li><a href="#">체험장소</a></li>
+      <li><a href="#">날씨</a></li>
+    </ul>
+  </nav>
+
+  <main class="card">
+    <h2>제주대학교 홍보 문구</h2>
+    <div class="promo">
+      <h3>🌴 제주대학교를 소개합니다</h3>
+      <ol>
+        <li>바다와 한라산이 품은 대학, 제주대학교에 오신 것을 환영합니다!</li>
+        <li>제주의 자연 속에서 꿈을 키우는 제주 대표 국립대학입니다.</li>
+        <li>푸른 바다와 오름이 이어지는 섬에서 배움의 즐거움을 만나보세요.</li>
+        <li>제주대학교는 지역과 함께 성장해 온 열린 대학입니다.</li>
+        <li>배움이 삶이 되고, 삶이 지역의 미래가 되는 곳입니다.</li>
+        <li>섬이라는 특별한 환경이 우리 대학의 가장 큰 교실입니다.</li>
+        <li>한라산의 기상처럼 높은 뜻을 품고 도전하는 학생을 응원합니다.</li>
+        <li>제주의 역사와 문화를 이해하는 인재를 길러냅니다.</li>
+        <li>세계로 나아가는 제주의 관문, 제주대학교입니다.</li>
+        <li>당신의 첫걸음을 제주대학교가 함께합니다.</li>
+      </ol>
+      <h3>🎓 학문과 교육</h3>
+      <ol>
+        <li>기초 학문부터 응용 분야까지 폭넓은 전공을 만나볼 수 있습니다.</li>
+        <li>학생 한 명 한 명의 성장을 먼저 생각하는 교육을 지향합니다.</li>
+        <li>이론과 실습을 함께 배우는 현장 중심 교육을 추구합니다.</li>
+        <li>토론하고 질문하는 수업으로 생각하는 힘을 키웁니다.</li>
+        <li>융합 교육으로 새로운 분야에 도전할 기회를 드립니다.</li>
+        <li>교수님과 학생이 가까이 소통하는 따뜻한 학습 분위기입니다.</li>
+        <li>스스로 목표를 세우고 이루어 가는 자기주도 학습을 돕습니다.</li>
+        <li>전공 공부와 함께 교양 교육으로 균형 잡힌 시야를 넓힙니다.</li>
+        <li>디지털 시대에 필요한 정보 활용 능력을 함께 기릅니다.</li>
+        <li>배움의 끝에서 더 큰 질문을 발견하는 대학입니다.</li>
+      </ol>
+      <h3>🌊 제주만의 특색 있는 연구</h3>
+      <ol>
+        <li>제주의 바다는 해양 연구의 살아 있는 실험실입니다.</li>
+        <li>감귤을 비롯한 제주 농업의 가치를 연구하고 발전시킵니다.</li>
+        <li>화산섬 제주의 지질과 환경은 훌륭한 연구 주제가 됩니다.</li>
+        <li>청정 자연을 지키는 환경 연구에 관심을 기울입니다.</li>
+        <li>제주의 관광과 문화 산업을 연구하는 인재를 키웁니다.</li>
+        <li>해녀 문화와 제주어 같은 소중한 유산을 연구하고 보존합니다.</li>
+        <li>신재생 에너지와 지속 가능한 섬의 미래를 함께 고민합니다.</li>
+        <li>지역 문제를 해결하는 연구로 제주 사회에 기여합니다.</li>
+        <li>제주에서만 할 수 있는 연구가 세계와 연결됩니다.</li>
+        <li>섬의 지혜를 학문으로 풀어내는 대학입니다.</li>
+      </ol>
+      <h3>🏫 캠퍼스 생활</h3>
+      <ol>
+        <li>한라산이 보이는 캠퍼스에서 하루를 시작해 보세요.</li>
+        <li>사계절 변하는 제주의 풍경이 캠퍼스에도 가득합니다.</li>
+        <li>봄에는 꽃길을, 가을에는 청명한 하늘을 걸을 수 있습니다.</li>
+        <li>도서관에서 몰입하고, 잔디밭에서 쉬어가는 균형 있는 일상입니다.</li>
+        <li>친구들과 함께하는 점심시간이 하루의 즐거움이 됩니다.</li>
+        <li>편안하게 공부하고 쉴 수 있는 공간을 가꾸고 있습니다.</li>
+        <li>강의실 밖에서도 배움이 이어지는 열린 공간입니다.</li>
+        <li>바람 좋은 날에는 캠퍼스 산책으로 마음을 정리해 보세요.</li>
+        <li>공부에 지칠 때 올려다보는 제주 하늘이 위로가 됩니다.</li>
+        <li>캠퍼스에서의 하루하루가 소중한 추억이 됩니다.</li>
+      </ol>
+      <h3>🤝 동아리와 학생 활동</h3>
+      <ol>
+        <li>다양한 동아리가 새로운 친구를 기다리고 있습니다.</li>
+        <li>운동, 음악, 봉사, 학술까지 취향에 맞는 활동을 찾을 수 있습니다.</li>
+        <li>함께 땀 흘리며 쌓는 우정은 평생의 자산입니다.</li>
+        <li>학생회와 함께 만들어 가는 캠퍼스 문화가 있습니다.</li>
+        <li>축제 기간에는 캠퍼스가 설렘으로 가득 찹니다.</li>
+        <li>공연과 전시로 나의 재능을 마음껏 펼쳐 보세요.</li>
+        <li>봉사 활동으로 지역과 함께하는 따뜻함을 배웁니다.</li>
+        <li>새내기 환영 행사로 첫 학기를 든든하게 시작합니다.</li>
+        <li>선배와 후배가 서로 이끌어 주는 문화를 소중히 합니다.</li>
+        <li>함께라서 더 즐거운 대학 생활을 약속합니다.</li>
+      </ol>
+      <h3>🚀 진로와 취업 지원</h3>
+      <ol>
+        <li>진로 고민을 함께 나누는 상담 프로그램을 운영합니다.</li>
+        <li>나의 강점을 발견하도록 돕는 맞춤형 지원을 제공합니다.</li>
+        <li>취업 준비를 위한 특강과 멘토링 기회를 마련합니다.</li>
+        <li>자격증과 어학 능력 향상을 위한 지원을 이어 갑니다.</li>
+        <li>현장 경험을 쌓는 실습과 인턴 기회를 넓혀 갑니다.</li>
+        <li>졸업생 선배들의 이야기를 통해 미래를 그려 볼 수 있습니다.</li>
+        <li>공공기관, 연구, 교육, 산업 등 다양한 진로를 응원합니다.</li>
+        <li>창업을 꿈꾸는 학생의 도전도 함께 응원합니다.</li>
+        <li>대학에서 쌓은 실력이 사회에서 빛나도록 돕겠습니다.</li>
+        <li>당신의 꿈의 크기만큼 진로의 길도 넓어집니다.</li>
+      </ol>
+      <h3>🌏 세계로 열린 대학</h3>
+      <ol>
+        <li>세계 여러 나라 학생들과 교류하는 기회가 열려 있습니다.</li>
+        <li>교환학생 프로그램으로 더 넓은 세상을 경험해 보세요.</li>
+        <li>외국인 유학생과 함께 배우는 글로벌 캠퍼스입니다.</li>
+        <li>언어와 문화의 벽을 넘는 교류가 시야를 넓혀 줍니다.</li>
+        <li>국제 협력을 통해 제주의 가치를 세계에 알립니다.</li>
+        <li>해외 연수와 어학 프로그램으로 글로벌 역량을 키웁니다.</li>
+        <li>다양한 문화를 존중하는 열린 마음을 배웁니다.</li>
+        <li>제주에서 시작해 세계로 뻗어 가는 꿈을 응원합니다.</li>
+        <li>세계와 소통하는 인재, 제주대학교가 길러냅니다.</li>
+        <li>작은 섬에서 큰 세계로, 도전은 지금부터입니다.</li>
+      </ol>
+      <h3>🍊 제주에서의 대학 생활</h3>
+      <ol>
+        <li>수업이 끝나면 바다와 오름이 가까이에 있습니다.</li>
+        <li>주말에는 올레길을 걸으며 머리를 식힐 수 있습니다.</li>
+        <li>겨울이면 달콤한 감귤이 일상 속 작은 행복이 됩니다.</li>
+        <li>흑돼지, 갈치조림 등 제주 향토 음식을 즐길 수 있습니다.</li>
+        <li>친구들과 떠나는 해안 드라이브는 잊지 못할 추억입니다.</li>
+        <li>일출과 일몰 명소가 가까워 낭만이 가득합니다.</li>
+        <li>자연과 가까이 지내며 마음의 여유를 되찾을 수 있습니다.</li>
+        <li>제주의 사계절을 온전히 누리는 특별한 대학 생활입니다.</li>
+        <li>공부도 휴식도 제주답게, 여유 있게 즐겨 보세요.</li>
+        <li>여기서만 누릴 수 있는 낭만이 제주대학교에 있습니다.</li>
+      </ol>
+      <h3>💼 지역사회와 함께</h3>
+      <ol>
+        <li>제주 지역사회와 협력하며 함께 성장하는 대학입니다.</li>
+        <li>지역 기업, 기관과 손잡고 상생의 길을 모색합니다.</li>
+        <li>시민 누구나 배울 수 있는 열린 교육의 문을 넓혀 갑니다.</li>
+        <li>지역 청소년에게 꿈을 키우는 기회를 나눕니다.</li>
+        <li>제주의 발전에 필요한 인재를 책임지고 길러냅니다.</li>
+        <li>지역 현안을 함께 연구하고 해법을 제안합니다.</li>
+        <li>대학의 지식이 지역의 삶에 닿도록 노력합니다.</li>
+        <li>주민과 함께하는 문화 행사로 이웃과 소통합니다.</li>
+        <li>제주의 자랑이 되는 대학을 만들어 갑니다.</li>
+        <li>지역과 대학이 함께 웃는 내일을 그립니다.</li>
+      </ol>
+      <h3>✨ 마무리 인사</h3>
+      <ol>
+        <li>제주대학교는 여러분의 도전을 언제나 응원합니다.</li>
+        <li>꿈을 향한 첫걸음을 이곳 제주에서 시작해 보세요.</li>
+        <li>한라산처럼 굳건하고, 바다처럼 넓은 마음으로 맞이합니다.</li>
+        <li>배움의 즐거움과 성장의 기쁨을 함께 나누겠습니다.</li>
+        <li>오늘의 선택이 내일의 자랑스러운 이야기가 됩니다.</li>
+        <li>여러분이 주인공이 되는 대학, 제주대학교입니다.</li>
+        <li>함께 만들어 갈 새로운 이야기를 기대합니다.</li>
+        <li>제주의 바람과 함께 꿈을 펼쳐 보세요.</li>
+        <li>제주대학교에서 더 큰 나를 만나 보세요.</li>
+        <li>🍊 제주대학교, 당신의 꿈이 피어나는 곳!</li>
+      </ol>
+    </div>
+  </main>
+
+  <footer class="card">
+    © 2026 김현주 · 제주 특산물 에이전트
+  </footer>
+
+</body>
+</html>
