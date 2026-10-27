@@ -11,18 +11,18 @@
     }
     * { box-sizing: border-box; }
     html { scroll-behavior: smooth; }
-    body { font-family: sans-serif; background: var(--bg); color: var(--fg); margin: 0; padding: 16px; line-height: 1.6; }
-    .page { max-width: 960px; margin: 0 auto; display: grid; gap: 14px;
+    body { font-family: sans-serif; background: var(--bg); color: var(--fg); margin: 0; padding: clamp(10px, 3vw, 24px); line-height: 1.6; -webkit-text-size-adjust: 100%; }
+    .page { max-width: 1200px; margin: 0 auto; display: grid; gap: 14px;
       grid-template-columns: 2fr 1fr;
       grid-template-areas: "header header" "nav nav" "gallery aside" "section aside" "article aside" "footer footer"; }
-    .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 20px 24px; min-width: 0; }
+    .box { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: clamp(14px, 3vw, 24px); min-width: 0; }
     h2 { margin: 0 0 12px; font-size: 1.2rem; }
     h3 { margin: 0 0 4px; font-size: 1rem; }
     p { margin: 0 0 8px; }
     .muted { color: var(--muted); font-size: .9rem; }
 
     header { grid-area: header; text-align: center; }
-    header h1 { margin: 0 0 4px; font-size: 1.9rem; color: var(--accent); }
+    header h1 { margin: 0 0 4px; font-size: clamp(1.4rem, 5vw, 1.9rem); color: var(--accent); }
     header p { margin: 0; color: var(--fg); }
 
     nav { grid-area: nav; padding: 10px 12px; }
@@ -79,8 +79,29 @@
     #chatPanel[hidden] { display: none; }
     #chatPanel iframe { width: 100%; height: 100%; border: 0; display: block; }
 
+    /* 태블릿: 오른쪽 칸을 조금 좁게 */
+    @media (max-width: 900px) {
+      .page { grid-template-columns: 3fr 2fr; }
+    }
+
+    /* 모바일: 한 줄로 쌓기 */
     @media (max-width: 720px) {
       .page { grid-template-columns: 1fr; grid-template-areas: "header" "nav" "gallery" "section" "article" "aside" "footer"; }
+      aside { align-self: stretch; }
+      nav ul { gap: 4px; }
+      nav a { padding: 10px 12px; font-size: .92rem; }
+      .slider { aspect-ratio: 4 / 3; }
+      .nav-btn { width: 44px; height: 44px; }
+      .pager { flex-wrap: wrap; gap: 8px; justify-content: center; }
+      .pager .muted { order: -1; width: 100%; text-align: center; }
+      #chatBtn { right: 12px; bottom: 12px; }
+      #chatPanel { right: 8px; left: 8px; bottom: 68px; width: auto; height: min(70vh, calc(100dvh - 90px)); }
+    }
+
+    @media (max-width: 400px) {
+      body { padding: 10px; }
+      .grid { grid-template-columns: 1fr; }
+      th, td { padding: 6px 4px; }
     }
   </style>
 </head>
@@ -258,6 +279,16 @@
 
     $('form').addEventListener('submit', e => { e.preventDefault(); search($('q').value); });
     document.querySelector('.chips').addEventListener('click', e => { if (e.target.dataset.q) search(e.target.dataset.q); });
+    // 모바일: 좌우로 밀어서 넘기기
+    let touchX = null;
+    const slider = document.querySelector('.slider');
+    slider.addEventListener('touchstart', e => { touchX = e.touches[0].clientX; }, { passive: true });
+    slider.addEventListener('touchend', e => {
+      if (touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      touchX = null;
+      if (Math.abs(dx) > 40) manual(index + (dx < 0 ? 1 : -1));
+    });
     $('prev').addEventListener('click', () => manual(index - 1));
     $('next').addEventListener('click', () => manual(index + 1));
     $('dots').addEventListener('click', e => { if (e.target.dataset.i) manual(+e.target.dataset.i); });
