@@ -77,6 +77,11 @@
     #chatBtn { position: fixed; right: 20px; bottom: 20px; padding: 12px 20px; font-size: 1rem; border-radius: 999px; background: var(--accent); color: var(--accent-fg); box-shadow: 0 4px 14px rgba(0,0,0,.25); z-index: 10; }
     #chatPanel { position: fixed; right: 20px; bottom: 76px; width: min(420px, calc(100vw - 40px)); height: min(600px, calc(100vh - 100px)); border: 1px solid var(--line); border-radius: 16px; overflow: hidden; background: var(--card); box-shadow: 0 8px 28px rgba(0,0,0,.3); z-index: 10; }
     #chatPanel[hidden] { display: none; }
+
+    /* 반응형 메뉴 페이지(reactive.html) 로 가는 큰 원형 버튼 */
+    #reactiveBtn { position: fixed; left: 20px; bottom: 20px; width: 96px; height: 96px; border-radius: 50%; background: var(--accent); color: var(--accent-fg); display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; text-decoration: none; font-weight: 700; font-size: .9rem; line-height: 1.3; box-shadow: 0 6px 18px rgba(0,0,0,.3); z-index: 10; transition: transform .2s; }
+    #reactiveBtn:hover, #reactiveBtn:focus-visible { transform: scale(1.08); }
+    #reactiveBtn .big { font-size: 2rem; line-height: 1.1; }
     #chatPanel iframe { width: 100%; height: 100%; border: 0; display: block; }
 
     /* 태블릿: 오른쪽 칸을 조금 좁게 */
@@ -95,6 +100,8 @@
       .pager { flex-wrap: wrap; gap: 8px; justify-content: center; }
       .pager .muted { order: -1; width: 100%; text-align: center; }
       #chatBtn { right: 12px; bottom: 12px; }
+      #reactiveBtn { left: 12px; bottom: 12px; width: 80px; height: 80px; font-size: .8rem; }
+      #reactiveBtn .big { font-size: 1.6rem; }
       #chatPanel { right: 8px; left: 8px; bottom: 68px; width: auto; height: min(70vh, calc(100dvh - 90px)); }
     }
 
@@ -207,6 +214,8 @@
       © 2026 김현주 · 제주 특산물 에이전트 · 사진 제공 Pixabay
     </footer>
   </div>
+
+  <a id="reactiveBtn" href="reactive.html" aria-label="반응형 메뉴 페이지 열기"><span class="big">🧭</span><span>반응형<br>메뉴</span></a>
 
   <button id="chatBtn" type="button" aria-expanded="false">💬 에이전트와 채팅</button>
   <div id="chatPanel" hidden></div>
